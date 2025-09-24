@@ -1,0 +1,78 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Agrega (contiene) los boletos vendidos en una fecha específica.
+ * Juega el papel del TODO en la relación de agregación con BoletoMuseo.
+ *
+ * @author Alejandro Sanchez Solano
+ * @version 1.0
+ * @since 2025-09-23
+ */
+public class VentaDelDia {
+
+    /** Fecha de la venta en formato ISO (yyyy-MM-dd). */
+    private String fechaDeLaVenta;
+
+    /** Colección de boletos vendidos en el día (agregación *). */
+    private List<BoletoMuseo> boletosVendidos;
+
+    /**
+     * Crea la venta del día actual e inicializa la lista de boletos.
+     */
+    public VentaDelDia() {
+        fechaDeLaVenta = establecerFechaDeLaVenta();
+        boletosVendidos = new ArrayList<>();
+    }
+
+    /**
+     * Registra la venta de un boleto, agregándolo a la colección.
+     *
+     * @param boleto boleto vendido a registrar
+     */
+    public void registrarVentaBoleto(BoletoMuseo boleto) {
+        boletosVendidos.add(boleto);
+    }
+
+    /**
+     * Calcula el monto total vendido sumando el precio de cada boleto.
+     *
+     * @return total de la venta del día en colones
+     */
+    public double calcularTotalVentaDelDia() {
+        double total = 0.0;
+        for (BoletoMuseo b : boletosVendidos) {
+            total += b.getPrecio();
+        }
+        return total;
+    }
+
+    /**
+     * Fija la fecha de la venta al día actual.
+     *
+     * @return cadena con la fecha actual formateada
+     */
+    private String establecerFechaDeLaVenta() {
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.now().format(f);
+    }
+
+    /**
+     * Devuelve un resumen con fecha, cantidad, detalle de boletos y total.
+     *
+     * @return representación multilinea de la venta del día
+     */
+    public String toString() {
+        String msg = "VentaDelDia\n";
+        msg += "  Fecha: " + fechaDeLaVenta + "\n";
+        msg += "  Cantidad de boletos: " + boletosVendidos.size() + "\n";
+        msg += "  Detalle:\n";
+        for (BoletoMuseo b : boletosVendidos) {
+            msg += "    - Boleto #" + b.getNumeroBoleto() + " | " + b.getPrecio() + "\n";
+        }
+        msg += "  Total: " + calcularTotalVentaDelDia();
+        return msg;
+    }
+}
