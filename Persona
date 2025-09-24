@@ -1,0 +1,84 @@
+/**
+ * Modela a una persona que puede tener asignado un boleto del museo.
+ * Participa en una relación de asociación (1) con BoletoMuseo.
+ *
+ * @author Alejandro Sanchez Solano
+ * @version 1.0
+ * @since 2025-09-23
+ */
+public class Persona {
+
+    /** Nombre completo de la persona. */
+    private String nombre;
+
+    /** Identificación (por ejemplo, cédula). */
+    private String identificacion;
+
+    /** Boleto asignado a la persona (puede ser null si no tiene). */
+    private BoletoMuseo miBoleto;
+
+    /**
+     * Crea una persona con nombre e identificación.
+     *
+     * @param nombre nombre de la persona
+     * @param ident  identificación de la persona
+     */
+    public Persona(String nombre, String ident) {
+        this(nombre);
+        identificacion = ident;
+    }
+
+    /**
+     * Crea una persona únicamente con el nombre.
+     *
+     * @param nombre nombre de la persona
+     */
+    public Persona(String nombre) {
+        this.nombre = nombre;
+    }
+
+    /**
+     * Establece o cambia la identificación.
+     *
+     * @param pIdentificacion nueva identificación
+     */
+    public void setIdentificacion(String pIdentificacion) {
+        identificacion = pIdentificacion;
+    }
+
+    /**
+     * Asigna un boleto a la persona.
+     *
+     * @param pMiBoleto referencia al boleto a asignar
+     */
+    public void asignarBoleto(BoletoMuseo pMiBoleto) {
+        miBoleto = pMiBoleto;
+    }
+
+    /**
+     * Consulta el número del boleto asignado.
+     *
+     * @return número del boleto asignado
+     * @throws NullPointerException si la persona no tiene boleto asignado
+     */
+    public int consultarMiNumeroDeBoleto() {
+        return miBoleto.getNumeroBoleto();
+    }
+
+    /**
+     * Devuelve un detalle de la persona y su boleto (si existe).
+     *
+     * @return descripción multilinea
+     */
+    public String toString() {
+        String msg = "Persona\n";
+        msg += "  Nombre: " + nombre + "\n";
+        msg += "  Identificacion: " + identificacion + "\n";
+        if (miBoleto != null) {
+            msg += "  Boleto asignado: #" + miBoleto.getNumeroBoleto() + "\n";
+        } else {
+            msg += "  Boleto asignado: (ninguno)\n";
+        }
+        return msg;
+    }
+}
